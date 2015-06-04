@@ -2,6 +2,7 @@
   "name": "fh-core",
   "version": "0.0.1",
   "description": "Featherhead core library",
+  "repository": "https://github.com/fd/fh-core.git",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha test",
