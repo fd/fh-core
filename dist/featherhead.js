@@ -32,6 +32,10 @@ var Featherhead = (function () {
     if (!this.commit || typeof this.commit !== 'string' || this.commit.length != 40) {
       throw Error('Featherhead: invalid commit option passed to constructor.');
     }
+
+    if (!this.assets || typeof this.assets !== 'string' || this.assets.length != 40) {
+      throw Error('Featherhead: invalid assets option passed to constructor.');
+    }
   }
 
   _createClass(Featherhead, [{
@@ -133,9 +137,9 @@ function normalizePath(path) {
 }
 
 function naddress(info, path) {
-  var commit = _Global.Global.encodeURIComponent(info.commit);
+  var assets = _Global.Global.encodeURIComponent(info.assets);
   path = _Global.Global.encodeURI(path);
-  return "/_asset/" + commit + path;
+  return "/_asset/" + assets + path;
 }
 
 },{"./Global":2}],5:[function(require,module,exports){

@@ -24,7 +24,7 @@ export function normalizePath(path) {
 }
 
 export function naddress(info, path) {
-  let commit = Global.encodeURIComponent(info.commit);
+  let assets = Global.encodeURIComponent(info.assets);
   path = Global.encodeURI(path);
-  return '/_asset/' + commit + path;
+  return '/_asset/' + assets + path;
 }
