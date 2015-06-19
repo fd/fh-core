@@ -1,4 +1,8 @@
-import {Global} from './Global';
+var self = (typeof window !== 'undefined' ? window : global);
+
+var encodeURIComponent = self.encodeURIComponent;
+var encodeURI          = self.encodeURI;
+export {self, encodeURIComponent, encodeURI};
 
 export function splitPath(path) {
   if (path === "/") {
@@ -21,10 +25,4 @@ export function normalizePath(path) {
   }
 
   return path;
-}
-
-export function naddress(info, path) {
-  let assets = Global.encodeURIComponent(info.assets);
-  path = Global.encodeURI(path);
-  return '/_asset/' + assets + path;
 }

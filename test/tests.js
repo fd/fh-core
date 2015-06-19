@@ -39,60 +39,16 @@ describe('Featherhead', function() {
 
   });
 
-  describe('.resolve()', function(){
+  describe('.asset()', function(){
 
-    it('works with objects', function(done) {
-      test.promise
-        .given(fh.resolve({ path: "path/to/file" }))
-        .then(function(unit){
-          test.object(unit)
-            .hasOwnProperty('path',    '/path/to/file')
-            .hasOwnProperty('dir',     '/path/to')
-            .hasOwnProperty('base',    'file')
-            .hasOwnProperty('address', '/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
-          done();
-        })
-        .catch(function(err){
-          test.fail(err.message);
-          done(err);
-        })
-        .done();
+    it('works with relative paths', function() {
+      test.string(fh.asset("path/to/file"))
+        .is('/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
     });
 
-    it('works with relative paths', function(done) {
-      test.promise
-        .given(fh.resolve("path/to/file"))
-        .then(function(unit){
-          test.object(unit)
-            .hasOwnProperty('path',    '/path/to/file')
-            .hasOwnProperty('dir',     '/path/to')
-            .hasOwnProperty('base',    'file')
-            .hasOwnProperty('address', '/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
-          done();
-        })
-        .catch(function(err){
-          test.fail(err.message);
-          done(err);
-        })
-        .done();
-    });
-
-    it('works with absolute paths', function(done) {
-      test.promise
-        .given(fh.resolve("/path/to/file"))
-        .then(function(unit){
-          test.object(unit)
-            .hasOwnProperty('path',    '/path/to/file')
-            .hasOwnProperty('dir',     '/path/to')
-            .hasOwnProperty('base',    'file')
-            .hasOwnProperty('address', '/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
-          done();
-        })
-        .catch(function(err){
-          test.fail(err.message);
-          done(err);
-        })
-        .done();
+    it('works with absolute paths', function() {
+      test.string(fh.asset("/path/to/file"))
+        .is('/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
     });
 
   });

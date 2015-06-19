@@ -1,4 +1,3 @@
-import {Promise} from './Promise';
 import * as Utils from './Utils';
 
 export class Featherhead {
@@ -19,22 +18,11 @@ export class Featherhead {
     }
   }
 
-  resolve(unit) {
-    if (typeof unit === 'string') {
-      unit = { path: unit };
-    }
-
-    unit.path = Utils.normalizePath(unit.path);
-    var info = Utils.splitPath(unit.path);
-
-    var unit = {
-      path:    unit.path,
-      dir:     info.dir,
-      base:    info.base,
-      address: Utils.naddress(this, unit.path)
-    };
-
-    return Promise.resolve(unit);
+  asset(path) {
+    let assets = Utils.encodeURIComponent(this.assets);
+    path = Utils.normalizePath(path);
+    path = Utils.encodeURI(path);
+    return '/_asset/' + assets + path;
   }
 
 }

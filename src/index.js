@@ -1,10 +1,10 @@
 import {Featherhead as fh} from './Featherhead';
-import {Global} from './Global';
+import {self} from './Utils';
 
 var main = null;
-if (Global.Featherhead) {
-  main = new fh(Global.Featherhead);
-  Global.Featherhead = main;
+if (self.Featherhead) {
+  main = new fh(self.Featherhead);
+  self.Featherhead = main;
 }
 
 export var Featherhead = fh;
