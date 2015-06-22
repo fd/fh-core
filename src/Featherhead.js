@@ -1,5 +1,7 @@
 import * as Utils from './Utils';
 
+var RE_EXT_JSON = /\.json$/;
+
 export class Featherhead {
 
   constructor(info={}) {
@@ -18,11 +20,25 @@ export class Featherhead {
     }
   }
 
-  asset(path) {
+  assetURL(path) {
     let assets = Utils.encodeURIComponent(this.assets);
     path = Utils.normalizePath(path);
     path = Utils.encodeURI(path);
     return '/_asset/' + assets + path;
+  }
+
+  dataURL(path) {
+    let commit = Utils.encodeURIComponent(this.commit);
+
+    path = Utils.normalizePath(path);
+    path = Utils.encodeURI(path);
+    path = path.replace(RE_EXT_JSON, '');
+
+    return '/_data/fetch/' + commit + path;
+  }
+
+  commitURL() {
+    return '/_data/commit';
   }
 
 }

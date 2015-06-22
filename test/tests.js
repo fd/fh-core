@@ -39,16 +39,45 @@ describe('Featherhead', function() {
 
   });
 
-  describe('.asset()', function(){
+  describe('.assetURL()', function(){
 
     it('works with relative paths', function() {
-      test.string(fh.asset("path/to/file"))
+      test.string(fh.assetURL("path/to/file"))
         .is('/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
     });
 
     it('works with absolute paths', function() {
-      test.string(fh.asset("/path/to/file"))
+      test.string(fh.assetURL("/path/to/file"))
         .is('/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
+    });
+
+  });
+
+  describe('.dataURL()', function(){
+
+    it('works with relative paths', function() {
+      test.string(fh.dataURL("path/to/file"))
+        .is('/_data/fetch/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
+    });
+
+    it('works with absolute paths', function() {
+      test.string(fh.dataURL("/path/to/file"))
+        .is('/_data/fetch/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
+    });
+
+    it('strips .json', function() {
+      test.string(fh.dataURL("/path/to/file.json"))
+        .is('/_data/fetch/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
+    });
+
+  });
+
+
+  describe('.commitURL()', function(){
+
+    it('always returns a single value', function() {
+      test.string(fh.dataURL("path/to/file"))
+        .is('/_data/commit');
     });
 
   });
