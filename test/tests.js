@@ -76,7 +76,7 @@ describe('Featherhead', function() {
   describe('.commitURL()', function(){
 
     it('always returns a single value', function() {
-      test.string(fh.dataURL("path/to/file"))
+      test.string(fh.commitURL())
         .is('/_data/commit');
     });
 
