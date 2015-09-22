@@ -2,7 +2,7 @@
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+	value: true
 });
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -18,53 +18,65 @@ var Utils = _interopRequireWildcard(_Utils);
 var RE_EXT_JSON = /\.json$/;
 
 var Featherhead = (function () {
-  function Featherhead() {
-    var info = arguments[0] === undefined ? {} : arguments[0];
+	function Featherhead() {
+		var info = arguments[0] === undefined ? {} : arguments[0];
 
-    _classCallCheck(this, Featherhead);
+		_classCallCheck(this, Featherhead);
 
-    var keys = Object.keys(info);
-    for (var idx in keys) {
-      var key = keys[idx];
-      this[key] = info[key];
-    }
+		var keys = Object.keys(info);
+		for (var idx in keys) {
+			var key = keys[idx];
+			this[key] = info[key];
+		}
 
-    if (!this.commit || typeof this.commit !== 'string' || this.commit.length != 40) {
-      throw Error('Featherhead: invalid commit option passed to constructor.');
-    }
+		if (!this.commit || typeof this.commit !== 'string' || this.commit.length != 40) {
+			throw Error('Featherhead: invalid commit option passed to constructor.');
+		}
 
-    if (!this.assets || typeof this.assets !== 'string' || this.assets.length != 40) {
-      throw Error('Featherhead: invalid assets option passed to constructor.');
-    }
-  }
+		if (!this.assets || typeof this.assets !== 'string' || this.assets.length != 40) {
+			throw Error('Featherhead: invalid assets option passed to constructor.');
+		}
+	}
 
-  _createClass(Featherhead, [{
-    key: 'assetURL',
-    value: function assetURL(path) {
-      var assets = Utils.encodeURIComponent(this.assets);
-      path = Utils.normalizePath(path);
-      path = Utils.encodeURI(path);
-      return '/_asset/' + assets + path;
-    }
-  }, {
-    key: 'dataURL',
-    value: function dataURL(path) {
-      var commit = Utils.encodeURIComponent(this.commit);
+	_createClass(Featherhead, [{
+		key: 'assetURL',
+		value: function assetURL(path) {
+			var assets = Utils.encodeURIComponent(this.assets);
 
-      path = Utils.normalizePath(path);
-      path = Utils.encodeURI(path);
-      path = path.replace(RE_EXT_JSON, '');
+			var url = path;
+			url = Utils.normalizePath(url);
+			url = Utils.encodeURI(url);
+			url = '/_asset/' + assets + url;
+			if (this['cdn-domain']) {
+				url = '//' + this['cdn-domain'] + url;
+			}
 
-      return '/_data/fetch/' + commit + path;
-    }
-  }, {
-    key: 'commitURL',
-    value: function commitURL() {
-      return '/_data/commit';
-    }
-  }]);
+			return url;
+		}
+	}, {
+		key: 'dataURL',
+		value: function dataURL(path) {
+			var commit = Utils.encodeURIComponent(this.commit);
 
-  return Featherhead;
+			var url = path;
+			url = Utils.normalizePath(url);
+			url = Utils.encodeURI(url);
+			url = url.replace(RE_EXT_JSON, '');
+			url = '/_data/fetch/' + commit + url;
+			if (this['cdn-domain']) {
+				url = '//' + this['cdn-domain'] + url;
+			}
+
+			return url;
+		}
+	}, {
+		key: 'commitURL',
+		value: function commitURL() {
+			return '/_data/commit';
+		}
+	}]);
+
+	return Featherhead;
 })();
 
 exports.Featherhead = Featherhead;
