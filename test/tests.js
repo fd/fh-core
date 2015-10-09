@@ -6,6 +6,8 @@ describe('Featherhead', function() {
 
   before(function(){
     fh = new Featherhead({
+      repo:   "test-repo",
+      "cdn-domain": "cdn-domain.com",
       commit: "cbc88e4013f93e0b15f70e8fa8441a8921519e55",
       assets: "6a713fccf0bd691422ab91675fa005e1b052e45f"
     });
@@ -43,12 +45,12 @@ describe('Featherhead', function() {
 
     it('works with relative paths', function() {
       test.string(fh.assetURL("path/to/file"))
-        .is('/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
+        .is('//cdn-domain.com/_asset/test-repo/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
     });
 
     it('works with absolute paths', function() {
       test.string(fh.assetURL("/path/to/file"))
-        .is('/_asset/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
+        .is('//cdn-domain.com/_asset/test-repo/6a713fccf0bd691422ab91675fa005e1b052e45f/path/to/file');
     });
 
   });
@@ -57,17 +59,17 @@ describe('Featherhead', function() {
 
     it('works with relative paths', function() {
       test.string(fh.dataURL("path/to/file"))
-        .is('/_data/fetch/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
+        .is('//cdn-domain.com/_data/fetch/test-repo/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
     });
 
     it('works with absolute paths', function() {
       test.string(fh.dataURL("/path/to/file"))
-        .is('/_data/fetch/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
+        .is('//cdn-domain.com/_data/fetch/test-repo/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
     });
 
     it('strips .json', function() {
       test.string(fh.dataURL("/path/to/file.json"))
-        .is('/_data/fetch/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
+        .is('//cdn-domain.com/_data/fetch/test-repo/cbc88e4013f93e0b15f70e8fa8441a8921519e55/path/to/file');
     });
 
   });
