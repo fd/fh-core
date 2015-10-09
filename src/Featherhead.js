@@ -21,12 +21,13 @@ export class Featherhead {
 	}
 
 	assetURL(path) {
+		let repo = Utils.encodeURIComponent(this.repo);
 		let assets = Utils.encodeURIComponent(this.assets);
 
 		let url = path;
 		url = Utils.normalizePath(url);
 		url = Utils.encodeURI(url);
-		url = '/_asset/' + assets + url;
+		url = '/_asset/' + repo + '/' + assets + url;
 		if (this['cdn-domain']) {
 			url = '//' + this['cdn-domain'] + url;
 		}
@@ -35,13 +36,14 @@ export class Featherhead {
 	}
 
 	dataURL(path) {
+		let repo = Utils.encodeURIComponent(this.repo);
 		let commit = Utils.encodeURIComponent(this.commit);
 
 		let url = path;
 		url = Utils.normalizePath(url);
 		url = Utils.encodeURI(url);
 		url = url.replace(RE_EXT_JSON, '');
-		url = '/_data/fetch/' + commit + url;
+		url = '/_data/fetch/' + repo + '/' + commit + url;
 		if (this['cdn-domain']) {
 			url = '//' + this['cdn-domain'] + url;
 		}
