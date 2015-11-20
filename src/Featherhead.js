@@ -14,20 +14,16 @@ export class Featherhead {
 		if (!this.commit || (typeof this.commit !== 'string') || this.commit.length != 40) {
 			throw Error("Featherhead: invalid commit option passed to constructor.")
 		}
-
-		if (!this.assets || (typeof this.assets !== 'string') || this.assets.length != 40) {
-			throw Error("Featherhead: invalid assets option passed to constructor.")
-		}
 	}
 
 	assetURL(path) {
 		let repo = Utils.encodeURIComponent(this.repo);
-		let assets = Utils.encodeURIComponent(this.assets);
+		let commit = Utils.encodeURIComponent(this.commit);
 
 		let url = path;
 		url = Utils.normalizePath(url);
 		url = Utils.encodeURI(url);
-		url = '/_asset/' + repo + '/' + assets + url;
+		url = '/asset/' + repo + '/' + commit + url;
 		if (this['cdn-domain']) {
 			url = '//' + this['cdn-domain'] + url;
 		}
@@ -43,7 +39,7 @@ export class Featherhead {
 		url = Utils.normalizePath(url);
 		url = Utils.encodeURI(url);
 		url = url.replace(RE_EXT_JSON, '');
-		url = '/_data/fetch/' + repo + '/' + commit + url;
+		url = '/data/' + repo + '/' + commit + url;
 		if (this['cdn-domain']) {
 			url = '//' + this['cdn-domain'] + url;
 		}
